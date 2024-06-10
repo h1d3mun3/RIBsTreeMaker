@@ -10,6 +10,8 @@ import PathKit
 
 let version = "0.3.0"
 
+var targetDirectory = ""
+
 func main() {
     let arguments = [String](CommandLine.arguments.dropFirst())
     let command = makeCommand(commandLineArguments: arguments)
@@ -31,6 +33,7 @@ func makeCommand(commandLineArguments: [String]) -> Command {
         return HelpCommand()
     }
     let arguments = analyzeArguments(commandLineArguments: commandLineArguments)
+    targetDirectory = firstArgument
 
     switch firstArgument {
     case "help":
@@ -75,5 +78,15 @@ func analyzeArguments(commandLineArguments: [String]) -> [String:String] {
 
     return arguments
 }
+
+func validateBuilderIsNeedle(builderFilePath: String) -> Bool {
+     return try! String(contentsOfFile: builderFilePath).contains("NeedleFoundation")
+ }
+
+ func extractBuilderPathFrom(targetName: String) -> String? {
+     let paths = allSwiftSourcePaths(directoryPath: targetDirectory)
+
+     return paths.filter({ $0.contains("/" + targetName + "Builder.swift") }).first
+ }
 
 main()
