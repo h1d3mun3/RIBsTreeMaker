@@ -12,11 +12,12 @@ import Rainbow
 struct MainCommand {
     private let rootRIBName: String
     private let shouldShowSummary: Bool
+    private let validateNeedle: Bool
     private let formatType: FormatType
     private let excludedRIBs: [String]
     private let paths: [String]
 
-    init(paths: [String], rootRIBName: String, shouldShowSummary: Bool, formatType: FormatType, excludedRIBs: [String]) {
+    init(paths: [String], rootRIBName: String, shouldShowSummary: Bool, validateNeedle: Bool, formatType: FormatType, excludedRIBs: [String]) {
         print("")
         print("Analyze \(paths.count) swift files.".applyingStyle(.bold))
         print("")
@@ -24,6 +25,7 @@ struct MainCommand {
         print("")
         self.rootRIBName = rootRIBName
         self.shouldShowSummary = shouldShowSummary
+        self.validateNeedle = validateNeedle
         self.formatType = formatType
         self.excludedRIBs = excludedRIBs
         self.paths = paths
