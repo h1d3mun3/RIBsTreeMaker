@@ -83,6 +83,11 @@ private extension PlantUMLFormatTreeMaker {
             LineColor #192f60
             FontColor #192f60
           }
+
+          .isNeedle {
+            LineColor #39c5bb
+            FontColor #39c5bb
+          }
         }
         </style>
         """
