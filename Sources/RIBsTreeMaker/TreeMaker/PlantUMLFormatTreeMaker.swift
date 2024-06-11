@@ -9,13 +9,15 @@ struct PlantUMLFormatTreeMaker: TreeMaker {
     let edges: [Edge]
     let rootRIBName: String
     let shouldShowSummary: Bool
+    let validateNeedle: Bool
     let excludedRIBs: [String]
     let paths: [String]
 
-    init(edges: [Edge], rootRIBName: String, shouldShowSummary: Bool, excludedRIBs: [String], paths: [String]) {
+    init(edges: [Edge], rootRIBName: String, shouldShowSummary: Bool, validateNeedle: Bool, excludedRIBs: [String], paths: [String]) {
         self.edges = edges
         self.rootRIBName = rootRIBName
         self.shouldShowSummary = shouldShowSummary
+        self.validateNeedle = validateNeedle
         self.excludedRIBs = excludedRIBs
         self.paths = paths
     }
@@ -44,7 +46,11 @@ private extension PlantUMLFormatTreeMaker {
 
         let viewControllablers = extractViewController(from: edges)
         let hasViewController = viewControllablers.contains(targetName)
-        let suffix = hasViewController ? "<<hasView>>" : ""
+        let isNeedle = validateBuilderIsNeedle(builderFilePath: extractBuilderPathFrom(targetName: targetName)!)
+        var suffix = hasViewController ? "<<hasView>>" : ""
+        if validateNeedle {
+            suffix += isNeedle ? " <<isNeedle>>" : ""
+        }
         if shouldShowSummary, let retrievedSummaryComment = try retrieveSummaryComment(targetName: targetName) {
             summary = " / \(retrievedSummaryComment)"
         }

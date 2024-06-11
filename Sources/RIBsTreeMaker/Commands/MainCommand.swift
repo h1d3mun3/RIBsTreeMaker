@@ -40,10 +40,10 @@ extension MainCommand: Command {
             let edges = makeEdges(from: structures).sorted()
             switch formatType {
             case .plantUML:
-                let treeMaker = PlantUMLFormatTreeMaker(edges: edges, rootRIBName: rootRIBName, shouldShowSummary: shouldShowSummary, excludedRIBs: excludedRIBs, paths: paths)
+                let treeMaker = PlantUMLFormatTreeMaker(edges: edges, rootRIBName: rootRIBName, shouldShowSummary: shouldShowSummary, validateNeedle: validateNeedle, excludedRIBs: excludedRIBs, paths: paths)
                 try treeMaker.make()
             case .markdown:
-                let treeMaker = MarkdownFormatTreeMaker(edges: edges, rootRIBName: rootRIBName, shouldShowSummary: shouldShowSummary, excludedRIBs: excludedRIBs, paths: paths)
+                let treeMaker = MarkdownFormatTreeMaker(edges: edges, rootRIBName: rootRIBName, shouldShowSummary: shouldShowSummary, validateNeedle: validateNeedle, excludedRIBs: excludedRIBs, paths: paths)
                 try treeMaker.make()
             }
             return .success(message: "\nSuccessfully completed.".green.applyingStyle(.bold))
