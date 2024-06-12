@@ -45,11 +45,13 @@ private extension PlantUMLFormatTreeMaker {
         }
 
         let viewControllablers = extractViewController(from: edges)
-        let hasViewController = viewControllablers.contains(targetName)
-        let isNeedle = validateBuilderIsNeedle(builderFilePath: extractBuilderPathFrom(targetName: targetName)!)
-        var suffix = hasViewController ? "<<hasView>>" : ""
+        let suffix: String
         if validateNeedle {
-            suffix += isNeedle ? " <<isNeedle>>" : ""
+            let isNeedle = validateBuilderIsNeedle(builderFilePath: extractBuilderPathFrom(targetName: targetName)!)
+            suffix = isNeedle ? " <<isNeedle>>" : ""
+        } else {
+            let hasViewController = viewControllablers.contains(targetName)
+            suffix = hasViewController ? "<<hasView>>" : ""
         }
         if shouldShowSummary, let retrievedSummaryComment = try retrieveSummaryComment(targetName: targetName) {
             summary = " / \(retrievedSummaryComment)"
