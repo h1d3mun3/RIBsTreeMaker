@@ -44,7 +44,7 @@ func makeCommand(commandLineArguments: [String]) -> Command {
         let paths = allSwiftSourcePaths(directoryPath: firstArgument)
         let rootRIBName = arguments["under"] ?? "Root"
         let shouldShowSummary = arguments["summary"] != nil
-        let validateNeedle = arguments["validateNeedle"] != nil
+        let validateNeedle = arguments["validate_needle"] != nil
         let formatType = FormatType(value: arguments["format"])
         let excludedRIBs = arguments["exclude"]?.components(separatedBy: ",") ?? []
 
